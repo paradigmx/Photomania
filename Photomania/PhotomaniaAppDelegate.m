@@ -7,31 +7,59 @@
 //
 
 #import "PhotomaniaAppDelegate.h"
-#import "PhotomaniaAppDelegate+ManagedObjectContext.h"
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
 #import "PhotoDatabaseAvailability.h"
 
 @interface PhotomaniaAppDelegate () <NSURLSessionDownloadDelegate>
-@property (copy, nonatomic) void (^flickrDownloadBackgroundURLSessionCompletionHandler)();
+@property (strong, nonatomic) NSManagedObjectContext *photoDatabaseContext;
 @property (strong, nonatomic) NSURLSession *flickrDownloadSession;
 @property (strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
-@property (strong, nonatomic) NSManagedObjectContext *photoDatabaseContext;
 @end
 
 @implementation PhotomaniaAppDelegate
 
-#define FLICKR_FETCH @"Flickr Just Uploaded Fetch"
+#define DATABSE_NAME @"Photomania"
+#define FLICKR_FETCH @"Fetch Task for Just Posted Photos"
 #define FOREGROUND_FLICKR_FETCH_INTERVAL (20*60)
 #define BACKGROUND_FLICKR_FETCH_TIMEOUT (10)
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
 
-    self.photoDatabaseContext = [self createMainQueueManagedObjectContext];
-    [self startFlickrFetch];
+#pragma mark - Database initialization w/ UIManagedDocument
 
-    return YES;
+- (void)createDatabase {
+    if (!self.database) {
+        NSURL *url = [self applicationDocumentsDirectory];
+        url = [url URLByAppendingPathComponent:DATABSE_NAME];
+        self.database = [[UIManagedDocument alloc] initWithFileURL:url];
+    }
+}
+
+- (void)setDatabase:(UIManagedDocument *)database {
+    if (_database != database) {
+        _database = database;
+    }
+
+    [self useDatabase];
+}
+
+- (void)useDatabase {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[self.database.fileURL path]]) {
+        [self.database saveToURL:self.database.fileURL
+                forSaveOperation:UIDocumentSaveForCreating
+               completionHandler:^(BOOL success) {
+                   self.photoDatabaseContext = self.database.managedObjectContext;
+               }];
+    } else if (self.database.documentState == UIDocumentStateClosed) {
+        [self.database openWithCompletionHandler:^(BOOL success) {
+            self.photoDatabaseContext = self.database.managedObjectContext;
+        }];
+    } else if (self.database.documentState == UIDocumentStateNormal) {
+        // No need to do anything here
+    }
 }
 
 - (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext {
@@ -51,31 +79,15 @@
                                                       userInfo:userInfo];
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    if (self.photoDatabaseContext) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        sessionConfig.allowsCellularAccess = NO;
-        sessionConfig.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // be a good background citizen
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
-        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
-        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
-                                                        completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
-                                                            if (error) {
-                                                                NSLog(@"Flickr background fetch failed: %@", error.localizedDescription);
-                                                                completionHandler(UIBackgroundFetchResultNoData);
-                                                            } else {
-                                                                [self loadFlickrPhotosFromLocalURL:localFile
-                                                                                       intoContext:self.photoDatabaseContext
-                                                                               andThenExecuteBlock:^{
-                                                                                   completionHandler(UIBackgroundFetchResultNewData);
-                                                                               }
-                                                                 ];
-                                                            }
-                                                        }];
-        [task resume];
-    } else {
-        completionHandler(UIBackgroundFetchResultNoData);
-    }
+#pragma mark - Application lifecycle
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+
+    [self createDatabase];
+    [self startFlickrFetch];
+
+    return YES;
 }
 
 #pragma mark - Flickr Fetching
@@ -160,6 +172,35 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error && (session == self.flickrDownloadSession)) {
         NSLog(@"Flickr background download session failed: %@", error.localizedDescription);
+    }
+}
+
+#pragma mark - Background fetch
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    if (self.photoDatabaseContext) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        sessionConfig.allowsCellularAccess = NO;
+        sessionConfig.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // be a good background citizen
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                        completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
+                                                            if (error) {
+                                                                NSLog(@"Flickr background fetch failed: %@", error.localizedDescription);
+                                                                completionHandler(UIBackgroundFetchResultNoData);
+                                                            } else {
+                                                                [self loadFlickrPhotosFromLocalURL:localFile
+                                                                                       intoContext:self.photoDatabaseContext
+                                                                               andThenExecuteBlock:^{
+                                                                                   completionHandler(UIBackgroundFetchResultNewData);
+                                                                               }
+                                                                 ];
+                                                            }
+                                                        }];
+        [task resume];
+    } else {
+        completionHandler(UIBackgroundFetchResultNoData);
     }
 }
 

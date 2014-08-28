@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PhotomaniaAppDelegate : UIResponder <UIApplicationDelegate>
-
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) UIManagedDocument *database; // our photo database
 @end
