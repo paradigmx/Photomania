@@ -190,12 +190,12 @@
 		B5E71B1E19AF1B72000A7FAF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B5E71B2819AF1C04000A7FAF /* Photographer.h */,
-				B5E71B2919AF1C04000A7FAF /* Photographer.m */,
 				B5E71B2519AF1C04000A7FAF /* Photo.h */,
 				B5E71B2619AF1C04000A7FAF /* Photo.m */,
 				B5E71B2B19AF1C56000A7FAF /* Photo+Flickr.h */,
 				B5E71B2C19AF1C56000A7FAF /* Photo+Flickr.m */,
+				B5E71B2819AF1C04000A7FAF /* Photographer.h */,
+				B5E71B2919AF1C04000A7FAF /* Photographer.m */,
 				B5E71B3319AF20C9000A7FAF /* Photographer+Create.h */,
 				B5E71B3419AF20C9000A7FAF /* Photographer+Create.m */,
 			);

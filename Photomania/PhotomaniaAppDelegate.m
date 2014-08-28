@@ -52,12 +52,30 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    [self startFlickrFetch];
-    completionHandler(UIBackgroundFetchResultNoData);
-}
-
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)())completionHandler {
-    self.flickrDownloadBackgroundURLSessionCompletionHandler = completionHandler;
+    if (self.photoDatabaseContext) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        sessionConfig.allowsCellularAccess = NO;
+        sessionConfig.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // be a good background citizen
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+        NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
+                                                        completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
+                                                            if (error) {
+                                                                NSLog(@"Flickr background fetch failed: %@", error.localizedDescription);
+                                                                completionHandler(UIBackgroundFetchResultNoData);
+                                                            } else {
+                                                                [self loadFlickrPhotosFromLocalURL:localFile
+                                                                                       intoContext:self.photoDatabaseContext
+                                                                               andThenExecuteBlock:^{
+                                                                                   completionHandler(UIBackgroundFetchResultNewData);
+                                                                               }
+                                                                 ];
+                                                            }
+                                                        }];
+        [task resume];
+    } else {
+        completionHandler(UIBackgroundFetchResultNoData);
+    }
 }
 
 #pragma mark - Flickr Fetching
@@ -107,30 +125,26 @@
     return [flickrPropertyList valueForKeyPath:FLICKR_RESULTS_PHOTOS];
 }
 
-- (void)loadFlickrPhotosFromLocalURL:(NSURL *)localFile intoContext:(NSManagedObjectContext *)context andThenExecuteBlock:(void(^)())whenDone {
+- (void)loadFlickrPhotosFromLocalURL:(NSURL *)localFile intoContext:(NSManagedObjectContext *)context andThenExecuteBlock:(void(^)())done {
     if (context) {
         NSArray *photos = [self flickrPhotosAtURL:localFile];
         [context performBlock:^{
             [Photo loadPhotosFromFlickrArray:photos intoManagedObjectContext:context];
             [context save:NULL]; // NOT NECESSARY if this is a UIManagedDocument's context
-            if (whenDone) whenDone();
+            if (done) done();
         }];
     } else {
-        if (whenDone) whenDone();
+        if (done) done();
     }
 }
 
-
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)localFile {
-    // we shouldn't assume we're the only downloading going on ...
+    // We shouldn't assume we're the only downloading going on ...
     if ([downloadTask.taskDescription isEqualToString:FLICKR_FETCH]) {
         // ... but if this is the Flickr fetching, then process the returned data
         [self loadFlickrPhotosFromLocalURL:localFile
                                intoContext:self.photoDatabaseContext
-                       andThenExecuteBlock:^{
-                           [self flickrDownloadTasksMightBeComplete];
-                       }
-         ];
+                       andThenExecuteBlock:nil];
     }
 }
 
@@ -146,21 +160,6 @@
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     if (error && (session == self.flickrDownloadSession)) {
         NSLog(@"Flickr background download session failed: %@", error.localizedDescription);
-        [self flickrDownloadTasksMightBeComplete];
-    }
-}
-
-- (void)flickrDownloadTasksMightBeComplete {
-    if (self.flickrDownloadBackgroundURLSessionCompletionHandler) {
-        [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-            if (![downloadTasks count]) {
-                void (^completionHandler)() = self.flickrDownloadBackgroundURLSessionCompletionHandler;
-                self.flickrDownloadBackgroundURLSessionCompletionHandler = nil;
-                if (completionHandler) {
-                    completionHandler();
-                }
-            }
-        }];
     }
 }
 
