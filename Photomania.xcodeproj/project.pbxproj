@@ -29,6 +29,7 @@
 		B5E71B3519AF20C9000A7FAF /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3419AF20C9000A7FAF /* Photographer+Create.m */; };
 		B5E71B3919AF22FD000A7FAF /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3819AF22FD000A7FAF /* CoreDataTableViewController.m */; };
 		B5E71B3C19AF2377000A7FAF /* PhotographerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3B19AF2377000A7FAF /* PhotographerTableViewController.m */; };
+		B5E71B3F19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3E19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,9 @@
 		B5E71B3819AF22FD000A7FAF /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		B5E71B3A19AF2377000A7FAF /* PhotographerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotographerTableViewController.h; sourceTree = "<group>"; };
 		B5E71B3B19AF2377000A7FAF /* PhotographerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotographerTableViewController.m; sourceTree = "<group>"; };
+		B5E71B3D19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PhotomaniaAppDelegate+ManagedObjectContext.h"; sourceTree = "<group>"; };
+		B5E71B3E19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PhotomaniaAppDelegate+ManagedObjectContext.m"; sourceTree = "<group>"; };
+		B5E71B4019AF308B000A7FAF /* PhotoDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoDatabaseAvailability.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,9 @@
 				B5E71B1519AF1A12000A7FAF /* Photomania.xcdatamodeld */,
 				B5E71AEF19AF19B9000A7FAF /* Main_iPhone.storyboard */,
 				B5E71AF219AF19B9000A7FAF /* Main_iPad.storyboard */,
+				B5E71B4019AF308B000A7FAF /* PhotoDatabaseAvailability.h */,
+				B5E71B3D19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.h */,
+				B5E71B3E19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.m */,
 				B5E71AEC19AF19B9000A7FAF /* PhotomaniaAppDelegate.h */,
 				B5E71AED19AF19B9000A7FAF /* PhotomaniaAppDelegate.m */,
 				B5E71B3A19AF2377000A7FAF /* PhotographerTableViewController.h */,
@@ -262,6 +269,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Paradigm X";
 				TargetAttributes = {
+					B5E71AD919AF19B9000A7FAF = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					B5E71AFD19AF19B9000A7FAF = {
 						TestTargetID = B5E71AD919AF19B9000A7FAF;
 					};
@@ -318,6 +332,7 @@
 				B5E71AEE19AF19B9000A7FAF /* PhotomaniaAppDelegate.m in Sources */,
 				B5E71B3C19AF2377000A7FAF /* PhotographerTableViewController.m in Sources */,
 				B5E71B3519AF20C9000A7FAF /* Photographer+Create.m in Sources */,
+				B5E71B3F19AF27C8000A7FAF /* PhotomaniaAppDelegate+ManagedObjectContext.m in Sources */,
 				B5E71B3919AF22FD000A7FAF /* CoreDataTableViewController.m in Sources */,
 				B5E71AEA19AF19B9000A7FAF /* main.m in Sources */,
 				B5E71B2A19AF1C04000A7FAF /* Photographer.m in Sources */,

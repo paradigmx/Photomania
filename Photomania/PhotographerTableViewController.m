@@ -8,15 +8,24 @@
 
 #import "PhotographerTableViewController.h"
 #import "Photographer+Create.h"
+#import "PhotoDatabaseAvailability.h"
 
 @implementation PhotographerTableViewController
+
+- (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserverForName:PhotoDatabaseAvailabilityNotificationName
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note) {
+                                                      self.managedObjectContext = note.userInfo[PhotoDatabaseAvailabilityContextName];
+                                                  }];
+}
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
 
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:ENTITY_NAME_PHOTOGRAPHER];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
-//    request.fetchLimit = 100;
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:_managedObjectContext
