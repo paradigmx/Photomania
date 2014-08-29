@@ -15,6 +15,7 @@
 + (Photo *)photoWithFlickrInfo:(NSDictionary *)photoDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
     Photo *photo = nil;
 
+    // TODO: Very bad performance when inserting many photos, try improve it later
     NSString *uniqueID = photoDictionary[FLICKR_PHOTO_ID];
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:ENTITY_NAME_PHOTO];
     request.predicate = [NSPredicate predicateWithFormat:@"uniqueID = %@", uniqueID];

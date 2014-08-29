@@ -18,16 +18,16 @@
             </objects>
             <point key="canvasLocation" x="-1615" y="-102"/>
         </scene>
-        <!--Photos Table View Controller - Photos-->
+        <!--Photos By Photographer Table View Controller - Photos-->
         <scene sceneID="pPz-xS-O0z">
             <objects>
-                <tableViewController id="8n8-Uc-Zcx" customClass="PhotosTableViewController" sceneMemberID="viewController">
+                <tableViewController id="8n8-Uc-Zcx" customClass="PhotosByPhotographerTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="k4n-cF-sjM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Flickr Photo Cell" textLabel="llc-PK-1dx" detailTextLabel="ABr-Fw-GoE" style="IBUITableViewCellStyleSubtitle" id="mof-dH-pr5">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo Cell" textLabel="llc-PK-1dx" detailTextLabel="ABr-Fw-GoE" style="IBUITableViewCellStyleSubtitle" id="mof-dH-pr5">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mof-dH-pr5" id="Tpx-FP-SuT">

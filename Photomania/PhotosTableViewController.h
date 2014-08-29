@@ -7,8 +7,7 @@
 //
 
 #import "CoreDataTableViewController.h"
-#import "Photographer.h"
 
 @interface PhotosTableViewController : CoreDataTableViewController
-@property (strong, nonatomic) Photographer *photographer;
+
 @end
