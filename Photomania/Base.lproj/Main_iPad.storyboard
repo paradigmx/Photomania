@@ -79,31 +79,79 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="EIg-zF-zhV">
-                                <rect key="frame" x="366" y="494" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Iwx-cd-u8p">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="I52-d6-fK8" firstAttribute="leading" secondItem="VRX-R4-fMz" secondAttribute="leading" id="45m-fq-Kz2"/>
-                            <constraint firstAttribute="centerY" secondItem="EIg-zF-zhV" secondAttribute="centerY" id="7lr-5f-Qsb"/>
-                            <constraint firstAttribute="centerX" secondItem="EIg-zF-zhV" secondAttribute="centerX" id="KVS-ew-Jun"/>
-                            <constraint firstAttribute="bottom" secondItem="I52-d6-fK8" secondAttribute="bottom" id="iCo-HG-CUU"/>
-                            <constraint firstAttribute="trailing" secondItem="I52-d6-fK8" secondAttribute="trailing" id="k2v-ud-tbH"/>
-                            <constraint firstItem="I52-d6-fK8" firstAttribute="top" secondItem="VRX-R4-fMz" secondAttribute="top" id="mjC-jT-ygV"/>
+                            <constraint firstAttribute="bottom" secondItem="I52-d6-fK8" secondAttribute="bottom" id="0rt-3D-UkL"/>
+                            <constraint firstAttribute="trailing" secondItem="I52-d6-fK8" secondAttribute="trailing" id="33e-nJ-mLh"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="leading" secondItem="VRX-R4-fMz" secondAttribute="leading" id="JFI-0J-l4Y"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="width" secondItem="Iwx-cd-u8p" secondAttribute="width" id="PeF-HW-p32"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="height" secondItem="Iwx-cd-u8p" secondAttribute="height" id="Uzo-9Y-IoQ"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="centerX" secondItem="Iwx-cd-u8p" secondAttribute="centerX" id="XwB-WB-kdj"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="centerY" secondItem="Iwx-cd-u8p" secondAttribute="centerY" id="aPO-s0-EQ2"/>
+                            <constraint firstItem="I52-d6-fK8" firstAttribute="top" secondItem="VRX-R4-fMz" secondAttribute="top" id="bHX-QY-z91"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Image" id="r5S-IJ-K07"/>
+                    <navigationItem key="navigationItem" title="Image" id="r5S-IJ-K07">
+                        <barButtonItem key="rightBarButtonItem" title="URL" id="FQw-FR-WNq">
+                            <connections>
+                                <segue destination="Udq-B9-zdC" kind="popover" identifier="Show URL" popoverAnchorBarButtonItem="FQw-FR-WNq" id="K1W-sK-2sv">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="I52-d6-fK8" id="2nz-Iw-dmD"/>
-                        <outlet property="spinner" destination="EIg-zF-zhV" id="RK4-bn-bAN"/>
+                        <outlet property="spinner" destination="Iwx-cd-u8p" id="Kkk-Gx-pjw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RR0-Ot-l83" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="670" y="426"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="ynY-Zw-0QB">
+            <objects>
+                <viewController id="Udq-B9-zdC" customClass="URLViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x7a-ZE-11m"/>
+                        <viewControllerLayoutGuide type="bottom" id="nEk-43-8sX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xV1-Y4-A1c">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" text="https://x.paradigmx.net" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="rb2-IO-vox">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rb2-IO-vox" secondAttribute="bottom" id="B8v-2b-fhk"/>
+                            <constraint firstItem="rb2-IO-vox" firstAttribute="leading" secondItem="xV1-Y4-A1c" secondAttribute="leading" id="YpR-Ie-ft9"/>
+                            <constraint firstAttribute="trailing" secondItem="rb2-IO-vox" secondAttribute="trailing" id="hdl-jD-JUM"/>
+                            <constraint firstItem="rb2-IO-vox" firstAttribute="top" secondItem="xV1-Y4-A1c" secondAttribute="top" id="nql-2j-V6N"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="40"/>
+                    <connections>
+                        <outlet property="urlTextView" destination="rb2-IO-vox" id="lAi-aE-LSM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c93-CM-rMs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1688" y="751"/>
         </scene>
         <!--Navigation Controller - Photographers-->
         <scene sceneID="mcL-Hc-ykA">

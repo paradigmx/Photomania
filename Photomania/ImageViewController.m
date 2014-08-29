@@ -7,12 +7,14 @@
 //
 
 #import "ImageViewController.h"
+#import "URLViewController.h"
 
 @interface ImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIImage *image;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) UIPopoverController *urlPopoverController;
 @end
 
 @implementation ImageViewController
@@ -29,7 +31,7 @@
 - (void)setImageURL:(NSURL *)imageURL {
     _imageURL = imageURL;
 
-    // self.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
+    if (self.urlPopoverController) [self.urlPopoverController dismissPopoverAnimated:YES];
     [self downloadImage];
 }
 
@@ -59,10 +61,6 @@
     [self.scrollView addSubview:self.imageView];
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return self.imageView;
-}
-
 - (void)downloadImage {
     self.image = nil;
 
@@ -85,6 +83,36 @@
                                                             }
                                                         }];
         [task resume];
+    }
+}
+
+#pragma mark - Scroll view controller delegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Show URL"]) {
+        if ([segue isKindOfClass:[UIStoryboardPopoverSegue class]]) {
+            self.urlPopoverController = ((UIStoryboardPopoverSegue *)segue).popoverController;
+        }
+
+        if ([segue.destinationViewController isKindOfClass:[URLViewController class]]) {
+            URLViewController *urlViewController = (URLViewController *)segue.destinationViewController;
+            urlViewController.url = self.imageURL;
+        }
+    }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"Show URL"]) {
+        return self.imageURL ? YES : NO;
+    }
+    else {
+        return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
     }
 }
 
