@@ -9,6 +9,7 @@
 #import "PhotographerTableViewController.h"
 #import "Photographer+Create.h"
 #import "PhotoDatabaseAvailability.h"
+#import "PhotosTableViewController.h"
 
 @implementation PhotographerTableViewController
 
@@ -41,6 +42,35 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu photos", (unsigned long)photographer.photos.count];
 
     return cell;
+}
+
+#pragma mark - Navigation
+
+- (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifier fromIndexPath:(NSIndexPath *)indexPath {
+    Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if ([vc isKindOfClass:[PhotosTableViewController class]]) {
+        if (![segueIdentifier length] || [segueIdentifier isEqualToString:@"Show Photos by Photographer"]) {
+            PhotosTableViewController *photosTableViewController = (PhotosTableViewController *)vc;
+            photosTableViewController.photographer = photographer;
+        }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id detail = [self.splitViewController.viewControllers lastObject];
+    if ([detail isKindOfClass:[UINavigationController class]]) {
+        detail = [((UINavigationController *)detail).viewControllers firstObject];
+        [self prepareViewController:detail forSegue:nil fromIndexPath:indexPath];
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    NSIndexPath *indexPath = nil;
+    if ([sender isKindOfClass:[UITableViewCell class]]) {
+        indexPath = [[self tableView] indexPathForCell:sender];
+    }
+
+    [self prepareViewController:segue.destinationViewController forSegue:segue.identifier fromIndexPath:indexPath];
 }
 
 @end
