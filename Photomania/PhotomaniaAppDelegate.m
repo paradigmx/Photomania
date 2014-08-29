@@ -141,8 +141,7 @@
     if (context) {
         NSArray *photos = [self flickrPhotosAtURL:localFile];
         [context performBlock:^{
-            [Photo loadPhotosFromFlickrArray:photos intoManagedObjectContext:context];
-            [context save:NULL]; // NOT NECESSARY if this is a UIManagedDocument's context
+            [Photo insertPhotosFromFlickrArray:photos intoManagedObjectContext:context];
             if (done) done();
         }];
     } else {
