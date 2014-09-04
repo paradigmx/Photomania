@@ -2,18 +2,18 @@
 //  PhotomaniaAppDelegate.m
 //  Photomania
 //
-//  Created by Neo on 8/28/14.
+//  Created by Neo Lee on 8/31/14.
 //  Copyright (c) 2014 Paradigm X. All rights reserved.
 //
 
 #import "PhotomaniaAppDelegate.h"
+#import "PhotoDatabaseAvailability.h"
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
-#import "PhotoDatabaseAvailability.h"
 
 @interface PhotomaniaAppDelegate () <NSURLSessionDownloadDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *photoDatabaseContext;
-@property (strong, nonatomic) NSURLSession *flickrDownloadSession;
+@property (strong, nonatomic) NSURLSession *flickFetchSession;
 @property (strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
 @end
 
@@ -25,10 +25,11 @@
 #define BACKGROUND_FLICKR_FETCH_TIMEOUT (10)
 
 - (NSURL *)applicationDocumentsDirectory {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
 }
 
-#pragma mark - Database initialization w/ UIManagedDocument
+#pragma mark - Managed object context initialization w/ UIManagedDocument
 
 - (void)createDatabase {
     if (!self.database) {
@@ -42,7 +43,7 @@
     if (_database != database) {
         _database = database;
     }
-
+    
     [self useDatabase];
 }
 
@@ -64,15 +65,17 @@
 
 - (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext {
     _photoDatabaseContext = photoDatabaseContext;
-
+    
     [self.flickrForegroundFetchTimer invalidate];
     self.flickrForegroundFetchTimer = nil;
     if (self.photoDatabaseContext) {
         self.flickrForegroundFetchTimer = [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FLICKR_FETCH_INTERVAL
                                                                            target:self
-                                                                         selector:@selector(startFlickrFetch:) userInfo:nil repeats:YES];
+                                                                         selector:@selector(startFlickrFetch:)
+                                                                         userInfo:nil
+                                                                          repeats:YES];
     }
-
+    
     NSDictionary *userInfo = self.photoDatabaseContext ? @{ PhotoDatabaseAvailabilityContextName: self.photoDatabaseContext } : nil;
     [[NSNotificationCenter defaultCenter] postNotificationName:PhotoDatabaseAvailabilityNotificationName
                                                         object:self
@@ -83,45 +86,46 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-
+    
     [self createDatabase];
     [self startFlickrFetch];
-
+    
     return YES;
 }
 
-#pragma mark - Flickr Fetching
+#pragma mark - Flickr fetch
 
 - (void)startFlickrFetch:(NSTimer *)timer {
     [self startFlickrFetch];
 }
 
 - (void)startFlickrFetch {
-    [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+    [self.flickFetchSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         if (![downloadTasks count]) {
-            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+            NSURLSessionDownloadTask *task = [self.flickFetchSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
             task.taskDescription = FLICKR_FETCH;
             [task resume];
-        } else {
-            for (NSURLSessionDownloadTask *task in downloadTasks) [task resume];
+        }
+        else {
+            for (NSURLSessionDownloadTask *task in downloadTasks) {
+                [task resume];
+            }
         }
     }];
 }
 
-- (NSURLSession *)flickrDownloadSession {
-    if (!_flickrDownloadSession) {
-        static dispatch_once_t onceToken; // dispatch_once ensures that the block will only ever get executed once per application launch
-        dispatch_once(&onceToken, ^{
-            // Notice the configuration here is "backgroundSessionConfiguration:"
-            // We will (eventually) get the results even if we are not the foreground application
-            NSURLSessionConfiguration *urlSessionConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:FLICKR_FETCH];
-            _flickrDownloadSession = [NSURLSession sessionWithConfiguration:urlSessionConfig
-                                                                   delegate:self    // MUST have a delegate for background configurations
-                                                              delegateQueue:nil];   // nil means "a random, non-main-queue queue"
+- (NSURLSession *)flickFetchSession {
+    if (!_flickFetchSession) {
+        static dispatch_once_t token;
+        dispatch_once(&token, ^{
+            NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfiguration:FLICKR_FETCH];
+            _flickFetchSession = [NSURLSession sessionWithConfiguration:config
+                                                               delegate:self
+                                                          delegateQueue:nil];
         });
     }
-
-    return _flickrDownloadSession;
+    
+    return _flickFetchSession;
 }
 
 #pragma mark - URL session download delegate
@@ -141,7 +145,7 @@
     if (context) {
         NSArray *photos = [self flickrPhotosAtURL:localFile];
         [context performBlock:^{
-            [Photo insertPhotosFromFlickrArray:photos intoManagedObjectContext:context];
+            [Photo insertPhotosFromFlickrArray:photos inManagedObjectContext:context];
             if (done) done();
         }];
     } else {
@@ -169,7 +173,7 @@
 
 // Optional, but we should definitely catch errors here
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    if (error && (session == self.flickrDownloadSession)) {
+    if (error && (session == self.flickFetchSession)) {
         NSLog(@"Flickr background download session failed: %@", error.localizedDescription);
     }
 }
@@ -178,10 +182,10 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (self.photoDatabaseContext) {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-        sessionConfig.allowsCellularAccess = NO;
-        sessionConfig.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // be a good background citizen
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig];
+        NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+        config.allowsCellularAccess = NO;
+        config.timeoutIntervalForRequest = BACKGROUND_FLICKR_FETCH_TIMEOUT; // be a good background citizen
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
         NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
         NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request
                                                         completionHandler:^(NSURL *localFile, NSURLResponse *response, NSError *error) {
@@ -198,7 +202,8 @@
                                                             }
                                                         }];
         [task resume];
-    } else {
+    }
+    else {
         completionHandler(UIBackgroundFetchResultNoData);
     }
 }

@@ -2,7 +2,7 @@
 //  PhotographerTableViewController.m
 //  Photomania
 //
-//  Created by Neo on 8/28/14.
+//  Created by Neo Lee on 8/31/14.
 //  Copyright (c) 2014 Paradigm X. All rights reserved.
 //
 
@@ -24,23 +24,27 @@
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
-
+    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:ENTITY_NAME_PHOTOGRAPHER];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
-
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                              ascending:YES
+                                                               selector:@selector(localizedStandardCompare:)]];
+    
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:_managedObjectContext
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
 }
 
+#pragma mark - Table view data source
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Photographer Cell"];
-
+    
     Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = photographer.name;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu photos", (unsigned long)photographer.photos.count];
-
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d photos", photographer.photos.count];
+    
     return cell;
 }
 
@@ -60,8 +64,9 @@
     id detail = [self.splitViewController.viewControllers lastObject];
     if ([detail isKindOfClass:[UINavigationController class]]) {
         detail = [((UINavigationController *)detail).viewControllers firstObject];
-        [self prepareViewController:detail forSegue:nil fromIndexPath:indexPath];
     }
+    
+    [self prepareViewController:detail forSegue:nil fromIndexPath:indexPath];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

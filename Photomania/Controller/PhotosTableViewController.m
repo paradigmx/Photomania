@@ -2,7 +2,7 @@
 //  PhotosTableViewController.m
 //  Photomania
 //
-//  Created by Neo on 8/29/14.
+//  Created by Neo Lee on 9/3/14.
 //  Copyright (c) 2014 Paradigm X. All rights reserved.
 //
 
@@ -14,10 +14,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Photo Cell"];
+    
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = photo.title;
     cell.detailTextLabel.text = photo.subtitle;
-
+    
     return cell;
 }
 
@@ -26,9 +27,11 @@
 - (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifier fromIndexPath:(NSIndexPath *)indexPath {
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([vc isKindOfClass:[ImageViewController class]]) {
-        ImageViewController *imageViewController = (ImageViewController *)vc;
-        imageViewController.imageURL = [NSURL URLWithString:photo.imageURL];
-        imageViewController.title = photo.title;
+        if (![segueIdentifier length] || [segueIdentifier isEqualToString:@"Show Photo"]) {
+            ImageViewController *imageViewController = (ImageViewController *)vc;
+            imageViewController.imageURL = [NSURL URLWithString:photo.imageURL];
+            imageViewController.title = photo.title;
+        }
     }
 }
 
@@ -36,8 +39,9 @@
     id detail = [self.splitViewController.viewControllers lastObject];
     if ([detail isKindOfClass:[UINavigationController class]]) {
         detail = [((UINavigationController *)detail).viewControllers firstObject];
-        [self prepareViewController:detail forSegue:nil fromIndexPath:indexPath];
     }
+
+    [self prepareViewController:detail forSegue:nil fromIndexPath:indexPath];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

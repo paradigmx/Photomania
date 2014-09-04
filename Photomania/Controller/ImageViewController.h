@@ -2,7 +2,7 @@
 //  ImageViewController.h
 //  Imaginarium
 //
-//  Created by Neo on 8/20/14.
+//  Created by Neo Lee on 8/23/14.
 //  Copyright (c) 2014 Paradigm X. All rights reserved.
 //
 
