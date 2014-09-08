@@ -33,6 +33,7 @@
 		B5E71B3219AF1E03000A7FAF /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3119AF1E03000A7FAF /* FlickrFetcher.m */; };
 		B5E71B3519AF20C9000A7FAF /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3419AF20C9000A7FAF /* Photographer+Create.m */; };
 		B5E71B3919AF22FD000A7FAF /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3819AF22FD000A7FAF /* CoreDataTableViewController.m */; };
+		B5F0E65619BDC10D00EA2A20 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F0E65519BDC10C00EA2A20 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		B5E71B3719AF22FD000A7FAF /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		B5E71B3819AF22FD000A7FAF /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		B5E71B4019AF308B000A7FAF /* PhotoDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoDatabaseAvailability.h; sourceTree = "<group>"; };
+		B5F0E65519BDC10C00EA2A20 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5F0E65619BDC10D00EA2A20 /* CoreData.framework in Frameworks */,
 				B5E71AE019AF19B9000A7FAF /* CoreGraphics.framework in Frameworks */,
 				B5E71AE219AF19B9000A7FAF /* UIKit.framework in Frameworks */,
 				B5E71ADE19AF19B9000A7FAF /* Foundation.framework in Frameworks */,
@@ -154,6 +157,7 @@
 		B5E71ADC19AF19B9000A7FAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5F0E65519BDC10C00EA2A20 /* CoreData.framework */,
 				B5E71ADD19AF19B9000A7FAF /* Foundation.framework */,
 				B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */,
 				B5E71AE119AF19B9000A7FAF /* UIKit.framework */,
@@ -498,6 +502,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Photomania/Photomania-Prefix.pch";
 				INFOPLIST_FILE = "Photomania/Photomania-Info.plist";
@@ -511,6 +516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Photomania/Photomania-Prefix.pch";
 				INFOPLIST_FILE = "Photomania/Photomania-Info.plist";
