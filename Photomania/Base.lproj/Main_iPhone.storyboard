@@ -187,8 +187,11 @@
                             <constraint firstAttribute="trailing" secondItem="3pF-0a-6Vb" secondAttribute="trailing" id="wZP-AB-e0L"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="qbu-9f-JJV"/>
+                    <navigationItem key="navigationItem" id="qbu-9f-JJV">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="Nq9-PE-9EF"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addPhotoBarButtonItem" destination="Nq9-PE-9EF" id="uGc-8a-M4p"/>
                         <outlet property="mapView" destination="3pF-0a-6Vb" id="4cH-1i-b6D"/>
                         <segue destination="pS2-Mi-5tK" kind="push" identifier="Show Photo" id="wgT-OS-tIn"/>
                     </connections>
@@ -204,6 +207,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="NhM-AX-HRU"/>
+        <segue reference="wgT-OS-tIn"/>
     </inferredMetricsTieBreakers>
 </document>
