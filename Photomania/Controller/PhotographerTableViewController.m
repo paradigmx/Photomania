@@ -11,6 +11,7 @@
 #import "PhotoDatabaseAvailability.h"
 #import "PhotosByPhotographerTableViewController.h"
 #import "PhotosByPhotographerMapViewController.h"
+#import "PhotosByPhotographerImageViewController.h"
 
 @implementation PhotographerTableViewController
 
@@ -60,6 +61,10 @@
     else if ([vc isKindOfClass:[PhotosByPhotographerMapViewController class]]) {
         PhotosByPhotographerMapViewController *photosMapViewController = (PhotosByPhotographerMapViewController *)vc;
         photosMapViewController.photographer = photographer;
+    }
+    else if ([vc isKindOfClass:[PhotosByPhotographerImageViewController class]]) {
+        PhotosByPhotographerImageViewController *imageViewController = (PhotosByPhotographerImageViewController *)vc;
+        imageViewController.photographer = photographer;
     }
 }
 
