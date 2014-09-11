@@ -10,6 +10,7 @@
 #import "PhotoDatabaseAvailability.h"
 #import "FlickrFetcher.h"
 #import "Photo+Flickr.h"
+#import "Photographer+Create.h"
 
 @interface PhotomaniaAppDelegate () <NSURLSessionDownloadDelegate>
 @property (strong, nonatomic) NSManagedObjectContext *photoDatabaseContext;
@@ -65,6 +66,9 @@
 
 - (void)setPhotoDatabaseContext:(NSManagedObjectContext *)photoDatabaseContext {
     _photoDatabaseContext = photoDatabaseContext;
+
+    // Make sure the special user in the database
+    if (photoDatabaseContext) [Photographer userInManagedObjectContext:photoDatabaseContext];
     
     [self.flickrForegroundFetchTimer invalidate];
     self.flickrForegroundFetchTimer = nil;
