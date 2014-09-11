@@ -162,6 +162,39 @@
             </objects>
             <point key="canvasLocation" x="725" y="-2033"/>
         </scene>
+        <!--Photos By Photographer Map View Controller-->
+        <scene sceneID="9CP-Tu-Scr">
+            <objects>
+                <viewController id="Dmq-nG-Ztb" customClass="PhotosByPhotographerMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LDP-R8-6oN"/>
+                        <viewControllerLayoutGuide type="bottom" id="xpx-KD-X2G"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FJ7-fW-0cX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="3pF-0a-6Vb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="3pF-0a-6Vb" firstAttribute="top" secondItem="FJ7-fW-0cX" secondAttribute="top" id="EMA-Oh-2I6"/>
+                            <constraint firstAttribute="bottom" secondItem="3pF-0a-6Vb" secondAttribute="bottom" id="dZ3-pN-HbT"/>
+                            <constraint firstItem="3pF-0a-6Vb" firstAttribute="leading" secondItem="FJ7-fW-0cX" secondAttribute="leading" id="i4V-f9-2Wg"/>
+                            <constraint firstAttribute="trailing" secondItem="3pF-0a-6Vb" secondAttribute="trailing" id="wZP-AB-e0L"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="3pF-0a-6Vb" id="4cH-1i-b6D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFh-9S-5bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="149" y="-1312"/>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

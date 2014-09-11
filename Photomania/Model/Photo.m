@@ -2,7 +2,7 @@
 //  Photo.m
 //  Photomania
 //
-//  Created by Neo Lee on 8/31/14.
+//  Created by Neo on 9/11/14.
 //  Copyright (c) 2014 Paradigm X. All rights reserved.
 //
 
@@ -12,10 +12,13 @@
 
 @implementation Photo
 
-@dynamic title;
-@dynamic subtitle;
 @dynamic imageURL;
+@dynamic subtitle;
+@dynamic title;
 @dynamic uniqueID;
+@dynamic latitude;
+@dynamic longitude;
+@dynamic thumbnailURL;
 @dynamic photographer;
 
 @end
