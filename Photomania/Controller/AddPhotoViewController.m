@@ -16,7 +16,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *subtitleTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) CLLocationManager *localtionManager;
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) NSInteger locationErrorCode;
 @property (strong, nonatomic) UIImage *image;
 @property (strong, nonatomic) CLLocation *location;
 @property (strong, nonatomic) NSURL *imageURL;
@@ -72,13 +73,13 @@
     return _imageURL;
 }
 
-- (CLLocationManager *)localtionManager {
-    if (!_localtionManager) {
-        _localtionManager = [[CLLocationManager alloc] init];
-        _localtionManager.delegate = self;
-        _localtionManager.desiredAccuracy = kCLLocationAccuracyBest;
+- (CLLocationManager *)locationManager {
+    if (!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     }
-    return _localtionManager;
+    return _locationManager;
 }
 
 + (BOOL)canAddPhoto {
@@ -95,6 +96,7 @@
 }
 
 - (IBAction)cancel {
+    self.image = nil;
     [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
@@ -132,13 +134,13 @@
         [self fatalAlert:@"Sorry, this device cannot take photo."];
     }
     else {
-        [self.localtionManager startUpdatingLocation];
+        [self.locationManager startUpdatingLocation];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.localtionManager stopUpdatingLocation];
+    [self.locationManager stopUpdatingLocation];
 }
 
 #pragma mark Alert view delegate
@@ -151,6 +153,10 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     self.location = locations.lastObject;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    self.locationErrorCode = error.code;
 }
 
 #pragma mark - Text field delegate
@@ -179,6 +185,10 @@
             photo.thumbnailURL = [self.thumbnailURL absoluteString];
 
             self.photo = photo;
+
+            // Cleaning up used URLs
+            self.imageURL = nil;
+            self.thumbnailURL = nil;
         }
     }
 }
@@ -191,6 +201,23 @@
         }
         else if (!self.titleTextField.text.length) {
             [self alert:@"Empty title!"];
+            return NO;
+        }
+        else if (!self.location) {
+            switch (self.locationErrorCode) {
+                case kCLErrorLocationUnknown:
+                    [self alert:@"Couldn't figure out where this photo was token for now."];
+                    break;
+                case kCLErrorDenied:
+                    [self alert:@"Location service disabled under Privacy settings."];
+                    break;
+                case kCLErrorNetwork:
+                    [self alert:@"Couldn't figure out where this photo was token. Check your network."];
+                    break;
+                default:
+                    [self alert:@"Couldn't figure out where this photo was token."];
+                    break;
+            }
             return NO;
         }
         else {
