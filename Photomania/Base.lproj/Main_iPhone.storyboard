@@ -37,7 +37,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="GhQ-9b-rTB" kind="push" identifier="Show Photos by Photographer" id="CnZ-WR-nLh"/>
+                                    <segue destination="Dmq-nG-Ztb" kind="push" identifier="Show Photos by Photographer" id="e5d-vZ-on6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -62,7 +62,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Photo Cell" textLabel="SmV-ol-LnS" detailTextLabel="Bp6-9Z-1SG" style="IBUITableViewCellStyleSubtitle" id="fIW-F3-sOF">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fIW-F3-sOF" id="IP7-sy-SWg">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -187,6 +187,7 @@
                             <constraint firstAttribute="trailing" secondItem="3pF-0a-6Vb" secondAttribute="trailing" id="wZP-AB-e0L"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="qbu-9f-JJV"/>
                     <connections>
                         <outlet property="mapView" destination="3pF-0a-6Vb" id="4cH-1i-b6D"/>
                     </connections>

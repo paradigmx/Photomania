@@ -10,6 +10,7 @@
 #import "Photographer+Create.h"
 #import "PhotoDatabaseAvailability.h"
 #import "PhotosByPhotographerTableViewController.h"
+#import "PhotosByPhotographerMapViewController.h"
 
 @implementation PhotographerTableViewController
 
@@ -53,10 +54,12 @@
 - (void)prepareViewController:(id)vc forSegue:(NSString *)segueIdentifier fromIndexPath:(NSIndexPath *)indexPath {
     Photographer *photographer = [self.fetchedResultsController objectAtIndexPath:indexPath];
     if ([vc isKindOfClass:[PhotosByPhotographerTableViewController class]]) {
-        if (![segueIdentifier length] || [segueIdentifier isEqualToString:@"Show Photos by Photographer"]) {
-            PhotosByPhotographerTableViewController *photosTableViewController = (PhotosByPhotographerTableViewController *)vc;
-            photosTableViewController.photographer = photographer;
-        }
+        PhotosByPhotographerTableViewController *photosTableViewController = (PhotosByPhotographerTableViewController *)vc;
+        photosTableViewController.photographer = photographer;
+    }
+    else if ([vc isKindOfClass:[PhotosByPhotographerMapViewController class]]) {
+        PhotosByPhotographerMapViewController *photosMapViewController = (PhotosByPhotographerMapViewController *)vc;
+        photosMapViewController.photographer = photographer;
     }
 }
 
