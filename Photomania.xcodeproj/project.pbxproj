@@ -13,13 +13,19 @@
 		B548D3EC19B83E7F007D8DBB /* PhotosTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B548D3E619B83E7F007D8DBB /* PhotosTableViewController.m */; };
 		B548D3ED19B83E7F007D8DBB /* URLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B548D3E819B83E7F007D8DBB /* URLViewController.m */; };
 		B5BF5E3219C1463D00071AC6 /* PhotosByPhotographerMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3119C1463D00071AC6 /* PhotosByPhotographerMapViewController.m */; };
-		B5BF5E3419C1470500071AC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5BF5E3319C1470500071AC6 /* MapKit.framework */; };
 		B5BF5E3719C149AF00071AC6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3619C149AF00071AC6 /* Photo.m */; };
 		B5BF5E3A19C14A9100071AC6 /* Photo+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3919C14A9100071AC6 /* Photo+Annotation.m */; };
 		B5BF5E3D19C1679700071AC6 /* PhotosByPhotographerImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3C19C1679700071AC6 /* PhotosByPhotographerImageViewController.m */; };
 		B5BF5E4019C184F200071AC6 /* AddPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3F19C184F200071AC6 /* AddPhotoViewController.m */; };
+		B5BF5E4519C19D8B00071AC6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F0E65519BDC10C00EA2A20 /* CoreData.framework */; };
+		B5BF5E4619C19D8B00071AC6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5BF5E3319C1470500071AC6 /* MapKit.framework */; };
+		B5BF5E4719C19D9D00071AC6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5BF5E4119C19C7400071AC6 /* CoreLocation.framework */; };
+		B5BF5E4819C19DAE00071AC6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */; };
+		B5BF5E4919C19DBF00071AC6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5BF5E4319C19C7B00071AC6 /* MobileCoreServices.framework */; };
+		B5BF5E4D19C1A24C00071AC6 /* UIImage+ParadigmX.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E4C19C1A24C00071AC6 /* UIImage+ParadigmX.m */; };
+		B5BF5E4F19C1A52000071AC6 /* Hallstatt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B5BF5E4E19C1A52000071AC6 /* Hallstatt.jpg */; };
+		B5BF5E5119C1A59900071AC6 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5BF5E5019C1A59900071AC6 /* CoreImage.framework */; };
 		B5E71ADE19AF19B9000A7FAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71ADD19AF19B9000A7FAF /* Foundation.framework */; };
-		B5E71AE019AF19B9000A7FAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */; };
 		B5E71AE219AF19B9000A7FAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71AE119AF19B9000A7FAF /* UIKit.framework */; };
 		B5E71AE819AF19B9000A7FAF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5E71AE619AF19B9000A7FAF /* InfoPlist.strings */; };
 		B5E71AEA19AF19B9000A7FAF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71AE919AF19B9000A7FAF /* main.m */; };
@@ -38,7 +44,6 @@
 		B5E71B3219AF1E03000A7FAF /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3119AF1E03000A7FAF /* FlickrFetcher.m */; };
 		B5E71B3519AF20C9000A7FAF /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3419AF20C9000A7FAF /* Photographer+Create.m */; };
 		B5E71B3919AF22FD000A7FAF /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E71B3819AF22FD000A7FAF /* CoreDataTableViewController.m */; };
-		B5F0E65619BDC10D00EA2A20 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F0E65519BDC10C00EA2A20 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +78,12 @@
 		B5BF5E3C19C1679700071AC6 /* PhotosByPhotographerImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosByPhotographerImageViewController.m; sourceTree = "<group>"; };
 		B5BF5E3E19C184F200071AC6 /* AddPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoViewController.h; sourceTree = "<group>"; };
 		B5BF5E3F19C184F200071AC6 /* AddPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoViewController.m; sourceTree = "<group>"; };
+		B5BF5E4119C19C7400071AC6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B5BF5E4319C19C7B00071AC6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		B5BF5E4B19C1A24C00071AC6 /* UIImage+ParadigmX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ParadigmX.h"; sourceTree = "<group>"; };
+		B5BF5E4C19C1A24C00071AC6 /* UIImage+ParadigmX.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ParadigmX.m"; sourceTree = "<group>"; };
+		B5BF5E4E19C1A52000071AC6 /* Hallstatt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Hallstatt.jpg; sourceTree = "<group>"; };
+		B5BF5E5019C1A59900071AC6 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		B5E71ADA19AF19B9000A7FAF /* Photomania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photomania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E71ADD19AF19B9000A7FAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -112,9 +123,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5BF5E3419C1470500071AC6 /* MapKit.framework in Frameworks */,
-				B5F0E65619BDC10D00EA2A20 /* CoreData.framework in Frameworks */,
-				B5E71AE019AF19B9000A7FAF /* CoreGraphics.framework in Frameworks */,
+				B5BF5E5119C1A59900071AC6 /* CoreImage.framework in Frameworks */,
+				B5BF5E4919C19DBF00071AC6 /* MobileCoreServices.framework in Frameworks */,
+				B5BF5E4819C19DAE00071AC6 /* CoreGraphics.framework in Frameworks */,
+				B5BF5E4719C19D9D00071AC6 /* CoreLocation.framework in Frameworks */,
+				B5BF5E4619C19D8B00071AC6 /* MapKit.framework in Frameworks */,
+				B5BF5E4519C19D8B00071AC6 /* CoreData.framework in Frameworks */,
 				B5E71AE219AF19B9000A7FAF /* UIKit.framework in Frameworks */,
 				B5E71ADE19AF19B9000A7FAF /* Foundation.framework in Frameworks */,
 			);
@@ -156,6 +170,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		B5BF5E4A19C1A23A00071AC6 /* UIImage+ParadigmX */ = {
+			isa = PBXGroup;
+			children = (
+				B5BF5E4B19C1A24C00071AC6 /* UIImage+ParadigmX.h */,
+				B5BF5E4C19C1A24C00071AC6 /* UIImage+ParadigmX.m */,
+			);
+			path = "UIImage+ParadigmX";
+			sourceTree = "<group>";
+		};
 		B5E71AD119AF19B9000A7FAF = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +201,9 @@
 		B5E71ADC19AF19B9000A7FAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5BF5E5019C1A59900071AC6 /* CoreImage.framework */,
+				B5BF5E4319C19C7B00071AC6 /* MobileCoreServices.framework */,
+				B5BF5E4119C19C7400071AC6 /* CoreLocation.framework */,
 				B5BF5E3319C1470500071AC6 /* MapKit.framework */,
 				B5F0E65519BDC10C00EA2A20 /* CoreData.framework */,
 				B5E71ADD19AF19B9000A7FAF /* Foundation.framework */,
@@ -193,7 +219,9 @@
 			children = (
 				B5E71B2E19AF1E03000A7FAF /* FlickrFetcher */,
 				B5E71B3619AF22FD000A7FAF /* CoreDataTableViewController */,
+				B5BF5E4A19C1A23A00071AC6 /* UIImage+ParadigmX */,
 				B5E71AF819AF19B9000A7FAF /* Images.xcassets */,
+				B5BF5E4E19C1A52000071AC6 /* Hallstatt.jpg */,
 				B5E71AEF19AF19B9000A7FAF /* Main_iPhone.storyboard */,
 				B5E71AF219AF19B9000A7FAF /* Main_iPad.storyboard */,
 				B5E71B1519AF1A12000A7FAF /* Photomania.xcdatamodeld */,
@@ -360,6 +388,7 @@
 				B5E71AF919AF19B9000A7FAF /* Images.xcassets in Resources */,
 				B5E71AF119AF19B9000A7FAF /* Main_iPhone.storyboard in Resources */,
 				B5E71AE819AF19B9000A7FAF /* InfoPlist.strings in Resources */,
+				B5BF5E4F19C1A52000071AC6 /* Hallstatt.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +420,7 @@
 				B5E71AEA19AF19B9000A7FAF /* main.m in Sources */,
 				B5BF5E4019C184F200071AC6 /* AddPhotoViewController.m in Sources */,
 				B5BF5E3D19C1679700071AC6 /* PhotosByPhotographerImageViewController.m in Sources */,
+				B5BF5E4D19C1A24C00071AC6 /* UIImage+ParadigmX.m in Sources */,
 				B5E71B2A19AF1C04000A7FAF /* Photographer.m in Sources */,
 				B5E71B3219AF1E03000A7FAF /* FlickrFetcher.m in Sources */,
 				B5BF5E3A19C14A9100071AC6 /* Photo+Annotation.m in Sources */,

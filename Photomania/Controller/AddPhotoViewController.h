@@ -11,5 +11,5 @@
 
 @interface AddPhotoViewController : UIViewController
 @property (strong, nonatomic) Photographer *photographer;
-@property (strong, nonatomic) Photo *photo;
+@property (strong, readonly) Photo *photo;
 @end
