@@ -17,6 +17,7 @@
 		B5BF5E3719C149AF00071AC6 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3619C149AF00071AC6 /* Photo.m */; };
 		B5BF5E3A19C14A9100071AC6 /* Photo+Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3919C14A9100071AC6 /* Photo+Annotation.m */; };
 		B5BF5E3D19C1679700071AC6 /* PhotosByPhotographerImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3C19C1679700071AC6 /* PhotosByPhotographerImageViewController.m */; };
+		B5BF5E4019C184F200071AC6 /* AddPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5BF5E3F19C184F200071AC6 /* AddPhotoViewController.m */; };
 		B5E71ADE19AF19B9000A7FAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71ADD19AF19B9000A7FAF /* Foundation.framework */; };
 		B5E71AE019AF19B9000A7FAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */; };
 		B5E71AE219AF19B9000A7FAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E71AE119AF19B9000A7FAF /* UIKit.framework */; };
@@ -70,6 +71,8 @@
 		B5BF5E3919C14A9100071AC6 /* Photo+Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photo+Annotation.m"; sourceTree = "<group>"; };
 		B5BF5E3B19C1679700071AC6 /* PhotosByPhotographerImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosByPhotographerImageViewController.h; sourceTree = "<group>"; };
 		B5BF5E3C19C1679700071AC6 /* PhotosByPhotographerImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosByPhotographerImageViewController.m; sourceTree = "<group>"; };
+		B5BF5E3E19C184F200071AC6 /* AddPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoViewController.h; sourceTree = "<group>"; };
+		B5BF5E3F19C184F200071AC6 /* AddPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoViewController.m; sourceTree = "<group>"; };
 		B5E71ADA19AF19B9000A7FAF /* Photomania.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photomania.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E71ADD19AF19B9000A7FAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B5E71ADF19AF19B9000A7FAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -145,6 +148,8 @@
 				B548D3E019B83E7F007D8DBB /* ImageViewController.m */,
 				B5BF5E3B19C1679700071AC6 /* PhotosByPhotographerImageViewController.h */,
 				B5BF5E3C19C1679700071AC6 /* PhotosByPhotographerImageViewController.m */,
+				B5BF5E3E19C184F200071AC6 /* AddPhotoViewController.h */,
+				B5BF5E3F19C184F200071AC6 /* AddPhotoViewController.m */,
 				B548D3E719B83E7F007D8DBB /* URLViewController.h */,
 				B548D3E819B83E7F007D8DBB /* URLViewController.m */,
 			);
@@ -384,6 +389,7 @@
 				B5E71B3519AF20C9000A7FAF /* Photographer+Create.m in Sources */,
 				B5E71B3919AF22FD000A7FAF /* CoreDataTableViewController.m in Sources */,
 				B5E71AEA19AF19B9000A7FAF /* main.m in Sources */,
+				B5BF5E4019C184F200071AC6 /* AddPhotoViewController.m in Sources */,
 				B5BF5E3D19C1679700071AC6 /* PhotosByPhotographerImageViewController.m in Sources */,
 				B5E71B2A19AF1C04000A7FAF /* Photographer.m in Sources */,
 				B5E71B3219AF1E03000A7FAF /* FlickrFetcher.m in Sources */,
