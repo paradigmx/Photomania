@@ -8,7 +8,7 @@
 
 #import "AddPhotoViewController.h"
 
-@interface AddPhotoViewController ()
+@interface AddPhotoViewController () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *subtitleTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -26,11 +26,19 @@
 }
 
 - (IBAction)cancel {
-
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (IBAction)takePhoto {
 
+}
+
+#pragma mark - Text field delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+
+    return YES;
 }
 
 @end
