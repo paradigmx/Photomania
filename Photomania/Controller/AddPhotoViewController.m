@@ -12,7 +12,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "UIImage+ParadigmX.h"
 
-@interface AddPhotoViewController () <UITextFieldDelegate, UIAlertViewDelegate, CLLocationManagerDelegate>
+@interface AddPhotoViewController () <UITextFieldDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextField *subtitleTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -101,7 +101,13 @@
 }
 
 - (IBAction)takePhoto {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.delegate = self;
+    imagePicker.mediaTypes = @[(NSString *)kUTTypeImage];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    imagePicker.allowsEditing = YES;
 
+    [self presentViewController:imagePicker animated:YES completion:NULL];
 }
 
 - (void)alert:(NSString *)message {
@@ -141,6 +147,19 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.locationManager stopUpdatingLocation];
+}
+
+#pragma mark - Image picker controller delegate
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerEditedImage];
+    if (!image) image = info[UIImagePickerControllerOriginalImage];
+    self.image = image;
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark Alert view delegate
