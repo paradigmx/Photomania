@@ -190,6 +190,7 @@
                     <navigationItem key="navigationItem" id="qbu-9f-JJV"/>
                     <connections>
                         <outlet property="mapView" destination="3pF-0a-6Vb" id="4cH-1i-b6D"/>
+                        <segue destination="pS2-Mi-5tK" kind="push" identifier="Show Photo" id="wgT-OS-tIn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFh-9S-5bo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -202,4 +203,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="wgT-OS-tIn"/>
+    </inferredMetricsTieBreakers>
 </document>
