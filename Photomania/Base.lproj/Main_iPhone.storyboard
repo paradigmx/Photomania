@@ -55,7 +55,7 @@
         <!--Photos By Photographer Table View Controller-->
         <scene sceneID="l4o-a6-hTy">
             <objects>
-                <tableViewController id="GhQ-9b-rTB" customClass="PhotosByPhotographerTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PhotosByPhotographerTableViewController" id="GhQ-9b-rTB" customClass="PhotosByPhotographerTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tQU-lk-Man">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,7 +121,7 @@
         <!--Image View Controller-->
         <scene sceneID="uy0-LB-eLw">
             <objects>
-                <viewController id="pS2-Mi-5tK" customClass="ImageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageViewController" id="pS2-Mi-5tK" customClass="ImageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LYA-8G-slb"/>
                         <viewControllerLayoutGuide type="bottom" id="dmx-cQ-M8W"/>
@@ -165,7 +165,7 @@
         <!--Photos By Photographer Map View Controller-->
         <scene sceneID="9CP-Tu-Scr">
             <objects>
-                <viewController id="Dmq-nG-Ztb" customClass="PhotosByPhotographerMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotosByPhotographerMapViewController" id="Dmq-nG-Ztb" customClass="PhotosByPhotographerMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LDP-R8-6oN"/>
                         <viewControllerLayoutGuide type="bottom" id="xpx-KD-X2G"/>
