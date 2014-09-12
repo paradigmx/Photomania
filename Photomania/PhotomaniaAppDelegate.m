@@ -122,7 +122,7 @@
     if (!_flickFetchSession) {
         static dispatch_once_t token;
         dispatch_once(&token, ^{
-            NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfiguration:FLICKR_FETCH];
+            NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:FLICKR_FETCH];
             _flickFetchSession = [NSURLSession sessionWithConfiguration:config
                                                                delegate:self
                                                           delegateQueue:nil];
