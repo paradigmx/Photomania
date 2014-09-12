@@ -16,9 +16,10 @@
 
 @interface PhotosByPhotographerMapViewController () <MKMapViewDelegate>
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *addPhotoBarButtonItem;
 @property (strong, nonatomic) NSArray *photosByPhotographer; // of Photo
 @property (strong, nonatomic) ImageViewController *imageViewController;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *addPhotoBarButtonItem;
+@property (strong, nonatomic) Photo *selectedPhoto;
 @end
 
 @implementation PhotosByPhotographerMapViewController
@@ -134,7 +135,14 @@
             photo = (Photo *)annotationView.annotation;
         }
         if (photo) {
-            imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]]];
+            self.selectedPhoto = photo;
+            dispatch_queue_t fetchQ = dispatch_queue_create("FlickrFetcher", NULL);
+            dispatch_async(fetchQ, ^{
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:photo.thumbnailURL]]];
+                if (photo == self.selectedPhoto) {
+                    dispatch_async(dispatch_get_main_queue(), ^{ imageView.image = image; });
+                }
+            });
         }
     }
 }
